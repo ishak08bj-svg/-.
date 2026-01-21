@@ -91,5 +91,14 @@ function copyText() {
 swapBtn.addEventListener("click", swapLang);
 translateBtn.addEventListener("click", translateText);
 copyBtn.addEventListener("click", copyText);
+let typingTimer;
+
+input.addEventListener("input", () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+        checkSpelling(input.value, from.value === "auto" ? "en-US" : from.value);
+    }, 600);
+});
+
 
 
