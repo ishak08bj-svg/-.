@@ -36,6 +36,39 @@ function swapLang() {
 async function translateText() {
     const text = input.value.trim();
     if (!text) return alert("اكتب نصًا");
+async function checkSpelling(text, lang) {
+    suggestionsBox.innerHTML = "";
+
+    if (!text) return;
+
+    try {
+        const res = await fetch("https://api.languagetool.org/v2/check", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `text=${encodeURIComponent(text)}&language=${lang}`
+        });
+
+        const data = await res.json();
+
+        data.matches.forEach(match => {
+            match.replacements.slice(0,3).forEach(rep => {
+                const span = document.createElement("span");
+                span.textContent = rep.value;
+                span.onclick = () => {
+                    input.value =
+                        input.value.slice(0, match.offset) +
+                        rep.value +
+                        input.value.slice(match.offset + match.length);
+                    suggestionsBox.innerHTML = "";
+                };
+                suggestionsBox.appendChild(span);
+            });
+        });
+
+    } catch (e) {
+        console.log("Spell check failed");
+    }
+}
 
     output.value = "جاري الترجمة...";
 
@@ -58,4 +91,5 @@ function copyText() {
 swapBtn.addEventListener("click", swapLang);
 translateBtn.addEventListener("click", translateText);
 copyBtn.addEventListener("click", copyText);
+
 
