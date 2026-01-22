@@ -1,0 +1,43 @@
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.glass{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:15px;
+width:90%;
+max-width:500px;
+color:#fff;
+}
+textarea{
+width:100%;
+min-height:90px;
+border:none;
+border-radius:10px;
+padding:10px;
+margin:10px 0;
+font-size:16px;
+}
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#00c6ff;
+font-size:18px;
+cursor:pointer;
+}
+#suggestions div{
+background:rgba(0,0,0,0.4);
+margin:3px 0;
+padding:5px;
+cursor:pointer;
+border-radius:6px;
+}
