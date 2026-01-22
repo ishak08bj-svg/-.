@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>AI Translator Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <div class="logo">AI Translator</div>
+        <div class="badge">PRO</div>
+    </div>
+
+    <div class="controls">
+        <select id="from"></select>
+        <button class="swap" id="swapBtn">⇄</button>
+        <select id="to"></select>
+    </div>
+
+    <div class="boxes">
+        <div style="position:relative;">
+            <textarea id="input" placeholder="اكتب النص هنا..."></textarea>
+            <div id="suggestions" class="suggestions"></div>
+        </div>
+        <textarea id="output" placeholder="الترجمة..." readonly></textarea>
+    </div>
+
+    <div class="actions">
+        <button class="btn copy" id="copyBtn">نسخ</button>
+        <button class="btn translate" id="translateBtn">ترجمة</button>
+    </div>
+
+    <div class="footer">All Languages • LibreTranslate & LanguageTool</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
