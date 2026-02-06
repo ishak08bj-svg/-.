@@ -1,174 +1,98 @@
-/* قاعدة عامة */
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-}
-
-body.dark{
-  background: radial-gradient(circle at top,#0a2a5f,#001f3f);
-  color: #fff;
-}
-
-body.light{
-  background: radial-gradient(circle at top,#f0f0f0,#cfcfcf);
-  color: #000;
-}
-
-/* شريط الأدوات العلوي */
-.top-bar{
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 15px 20px;
-}
-
-.top-bar button{
-  padding: 8px 14px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: 0.3s;
-  font-weight: bold;
-}
-
-.top-bar button:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(0,0,0,0.4);
-}
-
-body.dark .top-bar button{
-  background: linear-gradient(145deg,#1ec9ff,#005eff);
-  color: white;
-}
-
-body.light .top-bar button{
-  background: linear-gradient(145deg,#ffec5c,#ffc107);
-  color: black;
-}
+*{box-sizing:border-box;font-family:'Segoe UI',sans-serif;margin:0;padding:0;}
+body{min-height:100vh;background:radial-gradient(circle at top,#0aa2ff,#001f3f);display:flex;justify-content:center;align-items:flex-start;gap:20px;padding:20px;color:white;transition:0.3s;}
 
 /* الحاوية الرئيسية */
 .container{
-  width: 100%;
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  width:100%;
+  max-width:500px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  border-radius:30px;
+  background:linear-gradient(145deg,#1ec9ff,#005eff);
+  box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 2px 6px rgba(255,255,255,.4);
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+}
+.container::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:translateX(-100%);
+  transition:.7s;
+}
+.container:hover::before{transform:translateX(100%);}
+.container:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 40px 80px rgba(0,0,0,.9);}
+
+h1, h2, h3{text-align:center;font-size:1.6rem;font-weight:800;margin-bottom:10px;}
+
+/* الأزرار */
+button{
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  font-size:1rem;
+  cursor:pointer;
+  background:linear-gradient(145deg,#ff6a00,#ee0979);
+  color:white;
+  transition:0.3s;
+}
+button:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(0,0,0,.5);}
+
+#convert-btn{background:linear-gradient(145deg,#00ff6a,#00c851);}
+
+.top-bar{
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+}
+.top-bar button{
+  flex:1;
 }
 
-/* عنوان الموقع */
-.container h1{
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  margin-bottom: 10px;
+/* المدخلات و الاختيارات */
+input, select{
+  width:100%;
+  padding:14px 15px;
+  border:none;
+  border-radius:15px;
+  margin-bottom:12px;
+  font-size:1rem;
+  outline:none;
+  background:rgba(0,0,0,0.3);
+  color:white;
+  transition:0.3s;
 }
+input:focus, select:focus{background:rgba(0,0,0,0.4);}
 
-/* حقل إدخال المبلغ */
-#amount{
-  width: 100%;
-  padding: 12px 15px;
-  font-size: 1.2rem;
-  border-radius: 12px;
-  border: none;
-  outline: none;
-  background: rgba(0,0,0,0.2);
-  color: inherit;
-  text-align: right;
-}
-
-/* صندوق الاختيار */
 .select-box{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  display:flex;
+  gap:10px;
+  align-items:center;
 }
+.select-box span{font-size:1.5rem;}
 
-.select-box select{
-  flex: 1;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 12px;
-  border: none;
-  outline: none;
-  background: rgba(0,0,0,0.2);
-  color: inherit;
-}
-
-/* سهم تبديل العملات */
-.select-box span{
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-/* زر التحويل */
-#convert-btn{
-  padding: 12px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 15px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(145deg,#00ff6a,#00c851);
-  color: white;
-  transition: 0.3s;
-}
-
-#convert-btn:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.6);
-}
-
-/* نتيجة التحويل */
+/* النتيجة */
 .result{
-  margin-top: 10px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.2);
+  background:rgba(0,0,0,0.3);
+  border-radius:20px;
+  padding:15px;
+  font-size:1rem;
+  text-align:center;
 }
 
-/* الرسم البياني */
-canvas#chart{
-  margin-top: 15px;
-  border-radius: 15px;
-  background: rgba(255,255,255,0.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+/* الوضع الليلي / النهاري */
+body.light{background:radial-gradient(circle at top,#f5f7fa,#c3cfe2);color:#000;}
+body.light .container{background:linear-gradient(145deg,#a0c4ff,#005eff);}
+body.light input, body.light select{background:rgba(255,255,255,0.3);color:#000;}
+body.light button{color:#000;}
+body.light #convert-btn{background:linear-gradient(145deg,#00ff6a,#00c851);}
 
-/* الوضع الليلي / النهاري للألوان */
-body.light #amount,
-body.light .select-box select,
-body.light .result,
-body.light canvas#chart{
-  background: rgba(255,255,255,0.6);
-  color: black;
-}
-
-body.light #convert-btn{
-  background: linear-gradient(145deg,#ffec5c,#ffc107);
-  color: black;
-}
-
-/* متجاوب */
-@media(max-width: 600px){
-  .container{
-    width: 95%;
-  }
-  .top-bar{
-    justify-content: space-between;
-  }
+/* متجاوب للجوال */
+@media(max-width:600px){
+  .container{width:95%;padding:15px;}
+  input,select,button{font-size:1rem;padding:12px;}
+  .top-bar button{font-size:0.95rem;}
 }
